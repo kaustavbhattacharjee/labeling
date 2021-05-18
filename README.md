@@ -7,11 +7,11 @@ Clone this repository on your machine.
 
 Step 2:
 Run this command
-python3 -m pip install -r requirements.txt
+`python3 -m pip install -r requirements.txt`
 
 Step3:
 Run this command:
-python3 main.py
+`python3 main.py`
 
 Step 4:
 Press 
