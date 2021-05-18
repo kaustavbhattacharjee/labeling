@@ -1,0 +1,5 @@
+pandas
+openpyxl
+#if using Windows, uncomment below:
+#msvcrt
+
