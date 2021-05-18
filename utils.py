@@ -23,12 +23,12 @@ class Tweet:
         :param num: the input x,y,z from keyboard
         :return: fact, opinion, anti-fact, if other than x,y,z return ""
         """
-        if key == "z":
+        if key == "0":
             return "fact"
-        elif key == "x":
+        elif key == "1":
             return "opinion"
-        elif key == "c":
-            return "anti-fact"
+        elif key == "2":
+            return "misinformation"
         else:
             return ""
 
@@ -40,11 +40,16 @@ class Tweet:
         labels = df["ManualLabel"].tolist()
         for index, row in df.iterrows():
             if pd.isna(row["ManualLabel"]):
+                print("===========")
+                print("Tweet Text")
                 print(row["Tweet Text"])
                 print("===========")
+                print("Row Number: "+ str(index))
                 print("Subjective: " + str(row["SubjectivityScores"]))
                 print("Sentiment: " + str(row["FlairSentimentScore"]) + " " + str(row["FlairSentiment"]))
-                print('fact(z), opinion(x), anti-fact(c), Quit(q): ')
+                print("===========")
+                print('Classify as fact(0), opinion(1), misinformation(2) OR Skip(s), Quit(q): ')
+                print("Your Label:")
                 getch = _Getch()
                 label = getch()
                 label_char = self.label_key2char(label)

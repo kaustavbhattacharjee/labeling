@@ -19,4 +19,5 @@ PATH = "Kebby/MarchNonExpertsManualLabel3.csv" #first save the .xlsx file as .cs
 
 tweet = Tweet()
 tweets = tweet.import_data(PATH, "csv")
-tweet.create_label(tweets).to_csv(PATH, index=False)
+tweets_labeled = tweet.create_labels(tweets)
+tweet.save_labels(tweets_labeled, PATH, "csv", index=False)
