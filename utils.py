@@ -1,14 +1,15 @@
 import pandas as pd
 import csv
 import os
+from pandas import ExcelWriter
 
 
 
 class Tweet:
     def import_data(self, PATH, type):
-        # if type == "xlsx":
-        #     xl = pd.ExcelFile(PATH)
-        #     data = xl.parse("Sheet1")
+        if type == "xlsx":
+            xl = pd.ExcelFile(PATH)
+            data = xl.parse("Sheet1")
         if type == "csv":
             data = pd.read_csv(PATH)
         # if type == "csv":
@@ -17,21 +18,21 @@ class Tweet:
         #         data = list(reader)
         return data
 
-    def label_num2char(self, num):
+    def label_key2char(self, key):
         """
-        :param num: the input 1,2,3 from keyboard
-        :return: fact, opinion, anti-fact, if other than 1,2,3,4 or z, return ""
+        :param num: the input x,y,z from keyboard
+        :return: fact, opinion, anti-fact, if other than x,y,z return ""
         """
-        if num == "1":
+        if key == "z":
             return "fact"
-        elif num == "2":
+        elif key == "x":
             return "opinion"
-        elif num == "3":
+        elif key == "c":
             return "anti-fact"
         else:
             return ""
 
-    def create_label(self, df):
+    def create_labels(self, df):
         """
         :param df: imported data in dataframe format
         :return: dataframe with added label in ManualLabel column
@@ -43,12 +44,12 @@ class Tweet:
                 print("===========")
                 print("Subjective: " + str(row["SubjectivityScores"]))
                 print("Sentiment: " + str(row["FlairSentimentScore"]) + " " + str(row["FlairSentiment"]))
-                print('fact(1), opinion(2), anti-fact(3), end(z): ')
+                print('fact(z), opinion(x), anti-fact(c), Quit(q): ')
                 getch = _Getch()
                 label = getch()
-                label_char = self.label_num2char(label)
+                label_char = self.label_key2char(label)
                 os.system('cls' if os.name == 'nt' else 'clear')
-                if label == "z":
+                if label == "q":
                     break
                 labels[index] = label_char
             else:
@@ -56,6 +57,16 @@ class Tweet:
         df.drop(columns=["ManualLabel"], inplace=True)
         df["ManualLabel"] = labels
         return df
+
+    def save_labels(self, tweets_labeled, PATH, type, index):
+        df = tweets_labeled
+        if type == "xlsx":
+            writer = ExcelWriter(PATH)
+            df.to_excel(writer, 'Sheet1', index=index)
+            writer.save()
+        if type == "csv":
+            df.to_csv(PATH, index=index)
+
 
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the

@@ -14,9 +14,10 @@ if __name__ == '__main__':
     print_hi('Start Labeling')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-PATH = "Jun/test.csv"
-# PATH = "Jun/MarchNonExpertsManualLabel2.csv" #first save the .xlsx file as .csv
+# PATH = "Jun/test.xlsx"
+PATH = "Jun/MarchNonExpertsManualLabel2.csv"
 
 tweet = Tweet()
 tweets = tweet.import_data(PATH, "csv")
-tweet.create_label(tweets).to_csv(PATH, index=False)
+tweets_labeled = tweet.create_labels(tweets)
+tweet.save_labels(tweets_labeled, PATH, "csv", index=False)

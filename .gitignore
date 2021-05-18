@@ -1,7 +1,7 @@
 ### Python template
 
 # exclude large files
-Jun/MarchNonExpertsManualLabel2.csv
+#Jun/MarchNonExpertsManualLabel2.csv
 Jun/MarchNonExpertsManualLabel2.xlsx
 
 # Byte-compiled / optimized / DLL files
